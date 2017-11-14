@@ -1,0 +1,28 @@
+Firmware Analysis
+  - Firmware Acquisition
+		-> 제조사 웹사이트
+		-> JTAG *****
+		-> Flash memory Dumping (펌웨어가 암호화되어있을땐, 분석어려움) *****
+    -> USB host emulation
+    ....
+    
+	- Firmware Unpacking
+	
+  - Hunting for bugs
+		-> 환경 설정
+		-> 소프트웨어 취약점
+      1) 시스템보안 관점
+      2) 소프트웨어 취약점(암호학, 어플리케이션 취약점)
+		-> Management backdoor(제조사가 관리목적으로 남겨둔 backdoor : AS)
+		-> Firmware modification test
+      스마트폰은 Firmware 수정 어렵다
+    
+    AES는 아직까지 수학적으로 완벽하지만, 가져다쓰는 문제
+    ->결국 키관리
+    
+    -> Hardware Attack ex) fault injection voltage glitching, clock glitching(보통 분기문 excute 생략)
+    
+기존에는 Firmware는 EPROM(Read Only)에 저장되어있음
+-> 특별한 장비로만 Write 가능
+-> 펌웨어 업데이트 힘듬
+-> 최근은 Flash Memory를 사용

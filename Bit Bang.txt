@@ -1,0 +1,4 @@
+Bit Bang
+
+libftdi
+pyserial

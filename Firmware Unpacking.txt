@@ -1,0 +1,15 @@
+Entropy가 확 떨어지는 부분은 padding
+-> 보통1kb, 4byte 등으로 블록을 하기때문에 alginment이슈가 있다.
+-> 0000 혹은 1111부분이있기때문에 padding을 기준으로 앞뒤데이터는 성격이 다름
+
+entropy가 높은부분은 압축 or 암호화된 부분
+AAAABBB -> A4B3 이런 점때문에 압축부분은 random할 확률이 높으므로 압축가능성 다분
+(87page) padding사이는 file system
+normal data -> kernal
+0부분은 boot code
+
+동일한 성질의 entropy는 같은 부분이다.
+
+(88page) cramfs는 비슷한 시그니쳐를 가지고있다.
+
+? - 압축된 부트코드 - 압축된 커널 - cramfs파일시스템 - ?

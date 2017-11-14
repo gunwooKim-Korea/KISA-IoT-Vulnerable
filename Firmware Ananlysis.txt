@@ -28,4 +28,4 @@ Firmware Analysis
 -> 최근은 Flash Memory를 사용
 
 Nor Flash
-- provides XIP(Excute In Place) <- 바이트단위 addressing 가능 (NAND는 block단위이므로, offset으로 접근해야함)
+- provides XIP(Excute In Place) <- 바이트단위 addressing 가능 (NAND는 block단위이므로, offset으로 접근해야함 -> RAM에 올려서 실행해야함)

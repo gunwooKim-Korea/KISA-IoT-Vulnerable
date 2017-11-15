@@ -1,0 +1,12 @@
+1. signature analysis
+	$binwalk 펌웨어이미지명
+2. entropy analysis
+	$ binwalk -E 펌웨어이미지명
+3. extracting file system
+	$ dd if=펌웨어이미지명 of=파일시스템이미지명 bs=1
+		skip=파일시스템오프셋 count=파일시스템사이즈
+4. veryfing signature
+	$ file 파일시스템이미지명
+5. mounting file system
+	$ mkdir 마운트디렉토리 (mkdir rootfs)
+	$ sudo mount -t cramfs -o loop 파일시스템이미지명 마운트디렉토리

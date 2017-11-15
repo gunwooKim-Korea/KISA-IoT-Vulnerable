@@ -1,0 +1,19 @@
+CISC
+한 명령어가 많은 일을 수행
+ex)
+mul 2:3, 5:3
+
+RISC
+load r0, 2:3
+load r1, 5:3
+mul r0, r1
+store 2:3, r0
+
+fetch - decode - excute 중에서 단위가 같으면 pipeline이 유리
+excute수행시간을 같게하기위해 명령어를 단순하게 만듬
+
+RICS는 명령어가 단순하기 때문에 회로설계가 수월하고, 나머지 여백은 레지스터로
+채워 성능이 더 좋아짐
+
+JAL - 함수주소일정(local function)
+JALR - 함수주소바뀌는경우(Register)

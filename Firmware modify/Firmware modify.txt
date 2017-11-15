@@ -1,0 +1,29 @@
+sudo vi /opt/firmware-mod-kit/trunk/shared-ng.inc
+BINWALK=$(which binwalk)
+-----------------------------------------------------
+$ export PATH=$PATH:/opt/firmware-mod-kit/trunk
+
+1. 펌웨어 언패킹
+	$ extract-firmware.sh 펌웨어이미지명 디렉토리명
+2. 펌웨어 수정 (웹페이지 추가)
+	$ cd 디렉토리명/home/httpd
+	$ echo "<HTML>/BODY><H1>Hello World !@#!@# kkkM</H1></BODY></HTML>" | sudo tee hack.html
+	$ cd 192.168.0.1
+	$ sudo ln -s /home/httpd/hack.html hack.html
+	$ cd 192.168.0.1
+	$ sudo ln -s /home/httpd/hack.html hack.html
+3. 펌웨어 빌드
+	$ build-firmware.sh 디렉토리명 (새로운 펌웨어는 new-firmware.bin이라는 이름으로 생성)
+4. 펌웨어 프로그래밍
+	- 공유기에 UART 연결,
+	- 관리도구->펌웨어업그레이드->수동업그레이드 (new-firmware.bin 선택 후 업그레이드 진행)
+	- UART를 관찰해 펌웨어 업그레이드가 정상적으로 진행되는지 확인
+	- 실패한 경우 실패 당시의 메시지를 복사해 분석
+5. 체크섬 수정
+	- new-firmware.bin에서 체크섬을 찾아 수정 후 저장
+	- 리커버리 모드를 이용해 펌웨어 프로그래밍
+	<linux>				<window>
+	$ tftp				제어판-프로그램설치및제거->tftp 기능 활성화
+	tftp> connect 192.168.0.1	C:\> tftp -i 192.168.0.1 PUT new-firmware.bin
+	tftp> mode binary
+	tftp> put new-firmware.bin

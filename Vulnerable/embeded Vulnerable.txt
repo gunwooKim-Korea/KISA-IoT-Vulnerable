@@ -26,5 +26,15 @@ exec(_)
 2. 함수에 전달되는 명령어 문자열이 동적으로 생성되는가?
 system("echo 123")
 system("echo 사용자입력값")
+
+sprintf($s0, "echo %s %d > /var/hostname", $s1, var_38)
+system($s0)
+
 3. 동적으로 생성되는 명령어 문자열에 포함되는 사용자 입력값이 적절하게 필터링/sanitizing되는가?
 
+$s0 = get_option($packet,0xC) // get_option을 리버싱으로 분석하기보다 보통 open source인 경우가 많기때문에 그냥 검색이 더 효율적
+//검색으로 0x0C는 DHCP_HOST_NAME이라는걸알수있음 -> packet으로부터받은 host name을 이용해 /var/hostname에 저장
+memcpy($s1, $s0)
+sprintf($s0, "echo %s %d > /var/hostname", $s1, var_38)
+// 만약 hostname = ;/sbin/reboot; 이라면 첫 ;앞은 빈문자열이므로 아무일도발생안함, 그후 reboot실행.
+system($s0)

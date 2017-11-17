@@ -1,3 +1,5 @@
+$ sudo apt-get install openocd
+
 1. 설정 파일 작성(lab.cfg)
 
 interface ftdi
